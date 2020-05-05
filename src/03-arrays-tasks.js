@@ -621,8 +621,11 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  // throw new Error('Not implemented');
+  return array.reduce((country, city) => country.set(keySelector(city),
+    (country.get(keySelector(city)) || []).concat(valueSelector(city))),
+  new Map());
 }
 
 
@@ -661,8 +664,9 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  // throw new Error('Not implemented');
+  return indexes.reduce((prevValue, currValue) => prevValue[currValue], arr);
 }
 
 
@@ -684,8 +688,13 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  // throw new Error('Not implemented');
+  const midLength = Math.floor(arr.length / 2);
+  const equal = arr.length % 2 === 0;
+  const end = equal ? arr.slice(midLength) : arr.slice(midLength + 1);
+  const start = equal ? arr.slice(0, midLength) : [arr[midLength]].concat(arr.slice(0, midLength));
+  return end.concat(start);
 }
 
 
